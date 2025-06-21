@@ -40,6 +40,9 @@ function fn(arr):
 
 # Palindrome check
 # abcdcba , a-b-c ...  -d- ...  c-b-a
+import numpy as np
+
+
 def palindrome_check(s):
     left = 0
     right = len(s)-1
@@ -236,7 +239,6 @@ s = "11011111111101100111"
 print(f" longest substring: {find_length(s)}")
 # %%
 def find_length(nums, k):
-    # curr is the current sum of the window
     """
     k = 10
     nums = [1, 1, 1, 1, 1, 1, 1, 1, 10, ]
@@ -251,3 +253,47 @@ def find_length(nums, k):
         ans = max(ans, right - left + 1)
     
     return ans
+
+#%% 
+
+"""
+Example 4: Given an integer array nums and an integer k,
+find the sum of the subarray with the largest sum whose length is k.
+
+arr = [3, -1, 4, 12, -8, 5, 6] , k = 4
+
+scan with ws =4, and retun the max 
+
+arr = [ 3, -1, 4, 12, -8, 5, 6] , k = 4
+iter1   |___|__|__|     ----------------- sum = (3, -1, 4, 12) = 18
+iter2       |___|__|__ | ---------------- sum = (-1, 4, 12, -8) = 7  
+
+                    |___|__|__|
+
+
+
+.......                 
+"""
+def find_max_sum(arr, k):
+    l = 0
+    ans  = float('-inf')
+    for r in range(len(arr)-k+1):
+        ans = max(ans, sum(arr[r:r+k]))
+    return ans
+
+def find_max_sum_optimized(arr, k):
+    if len(arr) < k:
+        return 0
+    
+    win_sum = sum(arr[:k])
+    max_sum = win_sum
+    
+    for i in range(k, len(arr)):
+        win_sum += arr[i] - arr[i-k] 
+        max_sum = max(max_sum, win_sum)
+    
+    return max_sum
+
+print(find_max_sum([ 3, -1, 4, 12, -8, 5, 6], 4))
+print(find_max_sum_optimized([ 3, -1, 4, 12, -8, 5, 6], 4))
+# %%
