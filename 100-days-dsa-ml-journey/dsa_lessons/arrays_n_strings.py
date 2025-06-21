@@ -297,3 +297,76 @@ def find_max_sum_optimized(arr, k):
 print(find_max_sum([ 3, -1, 4, 12, -8, 5, 6], 4))
 print(find_max_sum_optimized([ 3, -1, 4, 12, -8, 5, 6], 4))
 # %%
+"""
+Example 3: 713. Subarray Product Less Than K.
+
+Given an array of positive integers nums and an integer k,
+return the number of subarrays where the product of all the elements
+in the subarray is strictly less than k.
+
+For example, given the input nums = [10, 5, 2, 6], k = 100, 
+the answer is 8. The subarrays with products less than k are:
+
+[10], [5], [2], [6], [10, 5], [5, 2], [2, 6], [5, 2, 6]
+
+l = 0, 
+
+nums = [10, 5, 2, 6], k = 100
+iter1    |               10     - true
+iter2    |___|           50    - true
+iter3    |___|__|        100    - false      
+iter4        |
+"""
+
+def numSubarrayProductLessThanK(nums, k):
+    if k <= 1:
+        return 0
+    l = ans = 0
+    curr = 1
+
+    for r in range(len(nums)):
+        curr *= nums[r]
+        while curr >= k:
+            curr //= nums[l]
+            l += 1
+        ans += r - l + 1
+    return ans
+
+print(numSubarrayProductLessThanK([10, 5, 2, 6], 100))
+# %%
+"""
+You are given an integer array nums consisting of n elements, and an integer k.
+
+Find a contiguous subarray whose length is equal to k that has the maximum average 
+value and return this value. Any answer with a calculation error less than 10-5 will be accepted.
+
+
+"""
+
+# class Solution(object):
+def findMaxAverage(nums, k):
+    """
+    :type nums: List[int]
+    :type k: int
+    :rtype: float
+    
+    Eg. [ 3, -1, 4, 12, -8, 5, 6] , k = 4 
+    
+        first_sum = 3 + -1 + 4 + 12 , ... =  18 , avg = 18/4
+        second_sum = -1 + 4 + 
+    
+    """
+    if len(nums) < k:
+        return None
+    
+    win_sum = 0
+    for i in range(k):
+        win_sum += nums[i]
+    max_sum = win_sum 
+    for j in range(k, len(nums)):
+        win_sum += (nums[j] - nums[j-k])
+        max_sum = max(max_sum, win_sum)
+    return max_sum/k
+    
+print(findMaxAverage([1,12,-5,-6,50,3],4))
+# %%
