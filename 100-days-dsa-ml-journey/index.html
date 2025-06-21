@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100-Day DSA & ML-CV Journey</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #2b1955 0%, #551233 50%, #0b4834 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            height: 8px;
+            margin: 20px auto;
+            width: 300px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            height: 100%;
+            width: 15%;
+            border-radius: 20px;
+            transition: width 0.3s ease;
+        }
+
+        .main-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .genre-card {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .genre-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .genre-card:hover::before {
+            left: 100%;
+        }
+
+        .genre-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .genre-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .dsa-card .genre-icon {
+            color: #FF6B6B;
+        }
+
+        .ml-card .genre-icon {
+            color: #4ECDC4;
+        }
+
+        .genre-card h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .genre-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4ECDC4;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .topic-panel {
+            display: none;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            color: white;
+        }
+
+        .topic-panel.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .panel-title {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .close-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #ff3838;
+            transform: scale(1.1);
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .topic-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid #4ECDC4;
+            color: white;
+        }
+
+        .topic-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .topic-day {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .topic-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin: 10px 0;
+        }
+
+        .topic-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .topic-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .action-btn.demo { background: linear-gradient(45deg, #4ECDC4, #44A08D); }
+        .action-btn.practice { background: linear-gradient(45deg, #FF6B6B, #ee5a52); }
+        .action-btn.theory { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: #5a67d8;
+        }
+
+        @media (max-width: 768px) {
+            .main-sections {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .genre-card {
+                padding: 30px 20px;
+            }
+        }
+
+        .week-divider {
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            height: 2px;
+            margin: 30px 0;
+            border-radius: 1px;
+        }
+
+        .week-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #667eea;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-rocket"></i> 100-Day DSA & ML-CV Journey</h1>
+            <p>Master Data Structures, Algorithms & Computer Vision through interactive learning</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p><span id="progressText">Day 15 of 100</span> - Keep going! 🚀</p>
+        </div>
+
+        <div class="main-sections">
+            <div class="genre-card dsa-card" onclick="showTopics('dsa')">
+                <div class="genre-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h2>Data Structures & Algorithms</h2>
+                <p>Master the fundamentals of computer science with hands-on coding challenges, 
+                    time complexity analysis, and problem-solving techniques.</p>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number">50</div>
+                        <div class="stat-label">Topics</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Problems</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="genre-card ml-card" onclick="showTopics('ml')">
+                <div class="genre-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h2>Machine Learning & Computer Vision</h2>
+                <p>Dive deep into ML algorithms, neural networks, and computer vision with practical 
+                    implementations and real-world applications.</p>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number">50</div>
+                        <div class="stat-label">Topics</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">10</div>
+                        <div class="stat-label">Domains</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DSA Topics Panel -->
+        <div id="dsaPanel" class="topic-panel">
+            <div class="panel-header">
+                <h2 class="panel-title"><i class="fas fa-code"></i> DSA Journey</h2>
+                <button class="close-btn" onclick="hideTopics()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="dsaTopics" class="topics-grid">
+                <!-- DSA topics will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- ML Topics Panel -->
+        <div id="mlPanel" class="topic-panel">
+            <div class="panel-header">
+                <h2 class="panel-title"><i class="fas fa-brain"></i> ML & Computer Vision Journey</h2>
+                <button class="close-btn" onclick="hideTopics()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="mlTopics" class="topics-grid">
+                <!-- ML topics will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Sample data structure for topics
+        const dsaTopics = [
+            // Week 1
+            { day: 1, week: 1, title: "Arrays & Lists", description: "Master time/space complexity, in-place operations. Solve Two Sum, Container With Most Water", problems: ["Two Sum", "Container With Most Water"], concepts: ["Time Complexity", "Space Complexity", "In-place Operations"] },
+            { day: 3, week: 1, title: "Strings", description: "String manipulation and pattern matching techniques", problems: ["Valid Palindrome", "Longest Substring Without Repeating Characters"], concepts: ["String Manipulation", "Pattern Matching"] },
+            { day: 5, week: 1, title: "Stacks & Queues", description: "Implementation and common applications", problems: ["Valid Parentheses", "Implement Queue using Stacks"], concepts: ["LIFO", "FIFO", "Stack Applications"] },
+            { day: 7, week: 1, title: "Linked Lists", description: "Singly vs Doubly linked, insertion, deletion operations", problems: ["Reverse Linked List", "Detect Cycle"], concepts: ["Pointers", "Node Manipulation", "Cycle Detection"] },
+            
+            // Week 2
+            { day: 9, week: 2, title: "Binary Trees", description: "Tree traversal and Binary Search Trees", problems: ["Maximum Depth", "Validate BST"], concepts: ["In-order", "Pre-order", "Post-order", "BST Properties"] },
+            { day: 11, week: 2, title: "Hash Tables", description: "Hash functions and collision resolution", problems: ["LRU Cache", "Group Anagrams"], concepts: ["Hash Functions", "Collision Resolution", "Load Factor"] },
+            { day: 13, week: 2, title: "Heaps & Priority Queues", description: "Min/Max heap and heapify operation", problems: ["Kth Largest Element", "Merge K Sorted Lists"], concepts: ["Heap Properties", "Heapify", "Priority Queues"] },
+            
+            // Week 3
+            { day: 15, week: 3, title: "Graphs I", description: "Graph representation and traversal algorithms", problems: ["Number of Islands", "Course Schedule"], concepts: ["BFS", "DFS", "Adjacency Matrix", "Adjacency List"] },
+            { day: 17, week: 3, title: "Graphs II", description: "Shortest path algorithms", problems: ["Network Delay Time", "Cheapest Flights"], concepts: ["Dijkstra", "Bellman-Ford", "Shortest Paths"] },
+            { day: 19, week: 3, title: "Dynamic Programming I", description: "Memoization vs Tabulation", problems: ["Climbing Stairs", "Coin Change"], concepts: ["Memoization", "Tabulation", "Optimal Substructure"] },
+            { day: 21, week: 3, title: "Dynamic Programming II", description: "2D DP problems", problems: ["Longest Common Subsequence", "Edit Distance"], concepts: ["2D DP", "State Transitions", "Bottom-up Approach"] },
+            
+            // Week 4
+            { day: 23, week: 4, title: "Backtracking", description: "State space tree and pruning", problems: ["N-Queens", "Word Search"], concepts: ["State Space", "Pruning", "Recursive Backtracking"] },
+            { day: 25, week: 4, title: "Greedy Algorithms", description: "Activity selection and optimization", problems: ["Jump Game", "Gas Station"], concepts: ["Greedy Choice", "Activity Selection", "Optimization"] },
+            { day: 27, week: 4, title: "Sorting & Searching", description: "Advanced sorting and binary search variants", problems: ["Search in Rotated Sorted Array", "Merge Intervals"], concepts: ["Quick Sort", "Merge Sort", "Binary Search Variants"] },
+            
+            // More weeks...
+            { day: 29, week: 5, title: "Bit Manipulation", description: "Bit operations and masks", problems: ["Single Number", "Counting Bits"], concepts: ["Bit Operations", "Bit Masks", "XOR Properties"] },
+            { day: 31, week: 5, title: "Trie", description: "Prefix tree implementation and applications", problems: ["Implement Trie", "Word Search II"], concepts: ["Prefix Trees", "Auto-complete", "String Search"] },
+            { day: 33, week: 5, title: "Union Find", description: "Disjoint set with path compression", problems: ["Number of Connected Components", "Redundant Connection"], concepts: ["Disjoint Sets", "Path Compression", "Union by Rank"] }
+        ];
+
+        const mlTopics = [
+            // Week 1
+            { day: 2, week: 1, title: "Linear Regression", description: "Mathematical formulation and gradient descent implementation", concepts: ["Gradient Descent", "MSE Loss", "Normal Equation"], implementations: ["From Scratch", "Scikit-learn"] },
+            { day: 4, week: 1, title: "Logistic Regression", description: "Maximum likelihood estimation and regularization", concepts: ["Sigmoid Function", "MLE", "L1/L2 Regularization"], implementations: ["Binary Classification", "Multi-class"] },
+            { day: 6, week: 1, title: "Decision Trees", description: "Information gain and tree pruning", concepts: ["Information Gain", "Gini Impurity", "Pruning"], implementations: ["CART", "ID3", "C4.5"] },
+            
+            // Week 2
+            { day: 8, week: 2, title: "Random Forest", description: "Ensemble methods and feature importance", concepts: ["Bagging", "Boosting", "Feature Importance"], implementations: ["Random Forest", "Extra Trees"] },
+            { day: 10, week: 2, title: "Support Vector Machines", description: "Kernels and soft margin classification", concepts: ["Kernel Trick", "Soft Margin", "Support Vectors"], implementations: ["Linear SVM", "RBF Kernel"] },
+            { day: 12, week: 2, title: "Principal Component Analysis", description: "Dimensionality reduction and eigenvalues", concepts: ["Eigenvalues", "Eigenvectors", "Variance Explained"], implementations: ["PCA", "Kernel PCA"] },
+            { day: 14, week: 2, title: "Clustering", description: "Unsupervised learning algorithms", concepts: ["K-means", "Hierarchical", "DBSCAN"], implementations: ["Elbow Method", "Silhouette Analysis"] },
+            
+            // Week 3
+            { day: 16, week: 3, title: "Neural Networks Basics", description: "Perceptron and multilayer architecture", concepts: ["Perceptron", "Backpropagation", "Activation Functions"], implementations: ["MLP", "Forward Pass", "Backward Pass"] },
+            { day: 18, week: 3, title: "Loss Functions", description: "Various loss functions for different tasks", concepts: ["MSE", "Cross-entropy", "Hinge Loss"], implementations: ["Regression Losses", "Classification Losses"] },
+            { day: 20, week: 3, title: "Optimization Algorithms", description: "Gradient descent variants and learning rate scheduling", concepts: ["SGD", "Adam", "RMSprop", "Learning Rate Scheduling"], implementations: ["Momentum", "Adaptive Learning"] },
+            
+            // Week 4 - Computer Vision
+            { day: 22, week: 4, title: "CNN Architecture I", description: "Convolutional layers and pooling operations", concepts: ["Convolution", "Pooling", "Feature Maps"], implementations: ["LeNet", "Basic CNN"] },
+            { day: 24, week: 4, title: "CNN Architecture II", description: "Classic architectures and transfer learning", concepts: ["AlexNet", "VGG", "ResNet", "Transfer Learning"], implementations: ["Fine-tuning", "Feature Extraction"] },
+            { day: 26, week: 4, title: "Object Detection", description: "Region proposals and detection algorithms", concepts: ["R-CNN", "YOLO", "SSD", "IoU", "mAP"], implementations: ["Anchor Boxes", "NMS"] },
+            { day: 28, week: 4, title: "Semantic Segmentation", description: "Pixel-level classification", concepts: ["FCN", "U-Net", "DeepLab"], implementations: ["Encoder-Decoder", "Skip Connections"] },
+            
+            // Week 5 - Autonomous Driving
+            { day: 30, week: 5, title: "3D Vision Basics", description: "Point cloud representation and depth estimation", concepts: ["Point Clouds", "Depth Estimation", "Stereo Vision"], implementations: ["Camera Calibration", "Depth Maps"] },
+            { day: 32, week: 5, title: "LiDAR Processing", description: "Point cloud filtering and feature extraction", concepts: ["Point Cloud Filtering", "Downsampling", "Registration"], implementations: ["PCL", "Open3D"] },
+            { day: 34, week: 5, title: "Camera-LiDAR Fusion", description: "Sensor calibration and fusion architectures", concepts: ["Sensor Fusion", "Calibration", "Late/Early Fusion"], implementations: ["Multi-modal Networks"] },
+            
+            // More advanced topics...
+            { day: 36, week: 6, title: "RNNs and Transformers", description: "Sequential data processing and attention mechanisms", concepts: ["LSTM", "GRU", "Self-attention", "Transformers"], implementations: ["Sequence Modeling", "Temporal Data"] },
+            { day: 38, week: 6, title: "Multi-Agent Systems", description: "Agent communication and cooperative learning", concepts: ["Agent Communication", "Centralized vs Decentralized"], implementations: ["Multi-agent RL", "Cooperative Learning"] },
+            { day: 40, week: 6, title: "Graph Neural Networks", description: "Node embeddings and message passing", concepts: ["Graph Convolutions", "Message Passing", "Node Embeddings"], implementations: ["GCN", "GraphSAGE"] }
+        ];
+
+        function showTopics(genre) {
+            // Hide all panels first
+            document.getElementById('dsaPanel').classList.remove('active');
+            document.getElementById('mlPanel').classList.remove('active');
+            
+            if (genre === 'dsa') {
+                populateTopics('dsaTopics', dsaTopics, 'dsa');
+                document.getElementById('dsaPanel').classList.add('active');
+            } else if (genre === 'ml') {
+                populateTopics('mlTopics', mlTopics, 'ml');
+                document.getElementById('mlPanel').classList.add('active');
+            }
+            
+            // Smooth scroll to panel
+            setTimeout(() => {
+                document.querySelector('.topic-panel.active').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }, 100);
+        }
+
+        function hideTopics() {
+            document.getElementById('dsaPanel').classList.remove('active');
+            document.getElementById('mlPanel').classList.remove('active');
+            
+            // Scroll back to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function populateTopics(containerId, topics, type) {
+            const container = document.getElementById(containerId);
+            let currentWeek = 0;
+            let html = '';
+            
+            topics.forEach(topic => {
+                // Add week divider
+                if (topic.week !== currentWeek) {
+                    if (currentWeek !== 0) html += '<div class="week-divider"></div>';
+                    html += `<div class="week-title">Week ${topic.week}</div>`;
+                    currentWeek = topic.week;
+                }
+                
+                html += `
+                    <div class="topic-item">
+                        <div class="topic-header">
+                            <span class="topic-day">Day ${topic.day}</span>
+                        </div>
+                        <div class="topic-title">${topic.title}</div>
+                        <div class="topic-description">${topic.description}</div>
+                        <div class="topic-actions">
+                            <button class="action-btn theory" onclick="openConcept('${topic.title}', '${type}')">
+                                <i class="fas fa-book"></i> Concept
+                            </button>
+                            <button class="action-btn demo" onclick="openDemo('${topic.title}', '${type}')">
+                                <i class="fas fa-play"></i> Demo
+                            </button>
+                            <button class="action-btn practice" onclick="openPractice('${topic.title}', '${type}')">
+                                <i class="fas fa-code"></i> Practice
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function openConcept(title, type) {
+            if (title === "Linear Regression" && type === "ml") {
+                // Open comprehensive README guide
+                window.open("Day2_LinearRegression_README.md", "_blank");
+                alert(`📚 Opening Day 2: Linear Regression Complete Guide!\n\nThis comprehensive guide includes:\n✓ Mathematical formulation & equations\n✓ Step-by-step implementation guide\n✓ Feature scaling techniques\n✓ Real-world house price example\n✓ Advanced topics & exercises\n✓ Key takeaways & best practices\n\nPlus access to interactive demos and coding practice!`);
+            } else {
+                // Placeholder for other concepts
+                alert(`Opening concept explanation for: ${title}\nType: ${type.toUpperCase()}\n\nThis would show detailed theory, examples, and interactive explanations.`);
+            }
+        }
+
+        function openDemo(title, type) {
+            if (title === "Linear Regression" && type === "ml") {
+                // Open Day 2 interactive demo in main app
+                window.open("/?__theme=light#day2_demo", "_blank");
+                alert(`🎮 Opening Day 2: Linear Regression Interactive Demo!\n\nThis will show:\n✓ Real-time parameter adjustment\n✓ Gradient descent visualization\n✓ Cost function analysis\n✓ Learning rate comparison\n✓ Model vs scikit-learn comparison\n✓ Residual analysis`);
+            } else {
+                // Placeholder for other demos
+                alert(`Opening interactive demo for: ${title}\nType: ${type.toUpperCase()}\n\nThis would show live visualizations, step-by-step execution, and interactive examples.`);
+            }
+        }
+
+        function openPractice(title, type) {
+            if (title === "Linear Regression" && type === "ml") {
+                // Open Day 2 coding practice in main app
+                window.open("/?__theme=light#day2_practice", "_blank");
+                alert(`💻 Opening Day 2: Interactive Coding Practice!\n\nThis will provide:\n✓ Guided implementation exercises\n✓ Real-time code testing\n✓ Automatic feedback\n✓ Step-by-step hints\n✓ Success validation\n✓ Error debugging help`);
+            } else {
+                // Placeholder for other practice sessions
+                alert(`Opening practice session for: ${title}\nType: ${type.toUpperCase()}\n\nThis would provide coding challenges, auto-graded problems, and solution explanations.`);
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide back to top button
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Update progress (connected to actual user progress)
+        function updateProgress() {
+            const day = 2; // Current day - Day 2: Linear Regression completed!
+            const percentage = (day / 100) * 100;
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = `Day ${day} of 100`;
+        }
+
+        // Initialize progress on page load
+        updateProgress();
+    </script>
+</body>
+</html> 
