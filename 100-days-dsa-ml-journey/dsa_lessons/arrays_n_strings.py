@@ -370,3 +370,47 @@ def findMaxAverage(nums, k):
     
 print(findMaxAverage([1,12,-5,-6,50,3],4))
 # %%
+"""
+input binary array nums, k
+
+req: max num of consec. 1's if you can flip at most k 0's
+
+left = 0, ans = 0
+zero_count = 0
+Input: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+                        |_|_|_|    |  
+                     0_Cnt = 2   
+
+constraint metric: max number of 1's series with at k 0's in them
+numeric restriction: < = k  
+
+Output: 6
+
+"""
+
+def find_max_num_cons_1s(nums, k):
+    left = 0
+    ans = 0
+    zero_cnt = 0
+    for right in range(len(nums)):
+        # ans += 1
+        if nums[right] == 0:
+            zero_cnt += 1
+        
+        while k < zero_cnt:
+            # ans -= 1
+            if nums[left] == 0:
+                zero_cnt -= 1
+            left += 1
+        ans = max(ans, right-left+1)
+
+    return ans
+"""
+Input: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+                        |_|_|_|    |  
+                     0_Cnt = 2   
+"""
+nums = [1,1,1,0,1,0,1,1,1,1,0]
+k = 2
+print(find_max_num_cons_1s(nums,k), (len(nums)-1))
+# %%
