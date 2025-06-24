@@ -414,3 +414,44 @@ nums = [1,1,1,0,1,0,1,1,1,1,0]
 k = 2
 print(find_max_num_cons_1s(nums,k), (len(nums)-1))
 # %%
+
+def waysToSplitArray( nums):
+    """
+
+    nums =  [10,4,-8,7]
+    left sum >= righl sum 
+    right section should have at least one element
+
+    we can solve this problem with prefix formulation
+
+    after prefix formulation:
+    1. left sections prefix[i]
+    2. rights sections  0<=i<=len(nums)-1
+    formulation: right section
+    right_section = prefix[-1]-prifix[i] + nums[i]
+
+        
+
+    """
+    prefix = [nums[0]]
+    
+    for i in range(1, len(nums)):
+        prefix.append( nums[i] + prefix[i-1] )
+
+    #
+
+    count = 0
+
+    for i in range(len(nums)-1):
+        left_sum = prefix[i]
+        right_sum = prefix[-1] - prefix[i]
+        if left_sum >= right_sum:
+            count+=1
+    return count
+
+print(waysToSplitArray([10,4,-8,7]))
+
+
+
+
+# %%
