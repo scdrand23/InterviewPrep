@@ -455,3 +455,42 @@ print(waysToSplitArray([10,4,-8,7]))
 
 
 # %%
+def waystoarraysplit2(nums):
+        """
+
+        nums =  [10,4,-8,7]
+        let us use sum and subract left sum so no need to calcualte the prefix for right sum
+
+        - left sum up to i
+        - righ sum: total - left sum
+        - iteration: unitl n-1
+
+            
+
+        """
+
+        total = sum(nums)
+        
+        left_sum =0
+        count = 0
+        for i in range(len(nums)-1):
+            left_sum += nums[i]
+            if left_sum >= (total - left_sum):
+                count+=1
+        
+        return count
+
+# %%
+
+def runningSum(nums):
+    """
+    in simple language runningsum is cumulative sum but nothing
+    or it is just calculating prefixsum
+
+    """
+
+    runsum = [nums[0]]
+    for i in range (1,len(nums)):
+        runsum.append(runsum[-1]+nums[i])
+
+    return runsum
