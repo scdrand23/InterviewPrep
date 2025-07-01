@@ -414,3 +414,4 @@ nums = [1,1,1,0,1,0,1,1,1,1,0]
 k = 2
 print(find_max_num_cons_1s(nums,k), (len(nums)-1))
 # %%
+
