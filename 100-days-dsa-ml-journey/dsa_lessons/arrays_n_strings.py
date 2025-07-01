@@ -415,3 +415,82 @@ k = 2
 print(find_max_num_cons_1s(nums,k), (len(nums)-1))
 # %%
 
+def waysToSplitArray( nums):
+    """
+
+    nums =  [10,4,-8,7]
+    left sum >= righl sum 
+    right section should have at least one element
+
+    we can solve this problem with prefix formulation
+
+    after prefix formulation:
+    1. left sections prefix[i]
+    2. rights sections  0<=i<=len(nums)-1
+    formulation: right section
+    right_section = prefix[-1]-prifix[i] + nums[i]
+
+        
+
+    """
+    prefix = [nums[0]]
+    
+    for i in range(1, len(nums)):
+        prefix.append( nums[i] + prefix[i-1] )
+
+    #
+
+    count = 0
+
+    for i in range(len(nums)-1):
+        left_sum = prefix[i]
+        right_sum = prefix[-1] - prefix[i]
+        if left_sum >= right_sum:
+            count+=1
+    return count
+
+print(waysToSplitArray([10,4,-8,7]))
+
+
+
+
+# %%
+def waystoarraysplit2(nums):
+        """
+
+        nums =  [10,4,-8,7]
+        let us use sum and subract left sum so no need to calcualte the prefix for right sum
+
+        - left sum up to i
+        - righ sum: total - left sum
+        - iteration: unitl n-1
+
+            
+
+        """
+
+        total = sum(nums)
+        
+        left_sum =0
+        count = 0
+        for i in range(len(nums)-1):
+            left_sum += nums[i]
+            if left_sum >= (total - left_sum):
+                count+=1
+        
+        return count
+
+# %%
+
+def runningSum(nums):
+    """
+    in simple language runningsum is cumulative sum but nothing
+    or it is just calculating prefixsum
+
+    """
+
+    runsum = [nums[0]]
+    for i in range (1,len(nums)):
+        runsum.append(runsum[-1]+nums[i])
+
+    return runsum
