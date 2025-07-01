@@ -494,3 +494,83 @@ def runningSum(nums):
         runsum.append(runsum[-1]+nums[i])
 
     return runsum
+
+# %% 
+
+"""
+Example 1: 1. Two Sum
+
+Given an array of integers nums and an integer target,
+return indices of two numbers such that they add up to target.
+You cannot use the same index twice.
+
+eg. [5, 2, 7, 10, 3, 9] ;
+
+target = 8
+
+Brute force solution: 
+    -> for i, j ... (O (n^2))
+
+How? 
+
+target = nums[i] + nums[j]
+
+
+[5, 2, 7, 10, 3, 9]
+
+
+-> while iterating using i, we want to return the value that makes target = nums[i] + nums[j]
+-> hash map: {num:idx}
+-> then, while iterating if target - nums[i] is in the hash map: then, return [i, nums[i]]
+"""
+def two_sum(nums, target):
+
+    nums_map = {}
+
+    for i in range(len(nums)):
+        if (target-nums[i]) in nums_map:
+            return [i, nums_map[target-nums[i]]]
+        nums_map[nums[i]] = i
+
+    return []
+
+print(two_sum([5, 2, 7, 10, 3, 9], 8))
+# %%
+"""
+Example 2: 2351. First Letter to Appear Twice
+Given a string s, return the first character to appear twice. 
+It is guaranteed that the input will have a duplicate character.
+
+Eg. Dereje 
+               -> Dereje 
+                  
+While iterating over the string: 
+    if c in the dictionary:
+    return c
+    the char is appearing for the first time add to the hashmap[idx] = char
+    
+"""
+
+def repeated_char(s):
+    s_map = {}
+
+    for c in s:
+        if c in s_map:
+            return c
+        s_map[c] = 1
+    return ""
+
+print(repeated_char("DrejeShenkut"))
+# %%
+def find_numbers(nums):
+    ans = []
+
+    nums_set = set(nums)
+
+    for x in nums_set:
+        if (x + 1 not in nums_set) and (x -1 not in nums_set):
+            ans.append(x)
+    return ans
+
+print(find_numbers([1, 1, 2, 4, 9]))
+# %%
