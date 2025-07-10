@@ -574,3 +574,59 @@ def find_numbers(nums):
 
 print(find_numbers([1, 1, 2, 4, 9]))
 # %%
+"""
+Example 1: You are given a string s and an integer k. 
+ind the length of the longest substring that contains at most k distinct characters.
+For example, given s = "eceba" and k = 2, return 3.
+The longest substring with at most 2 distinct characters is "ece"
+
+Given: s, k
+
+Goal: find longest substring that have at most k distinict characters . 
+
+High level idea:  while sliding the window while iterating over the string, track the occurrence of that character 
+if the new character addition causes violating the windows rule, move left, 
+if we move left, decreemetn the occurence counter if the occurence becomes zero then, 
+remove from our window size tracker dictionary
+
+"""
+from collections import defaultdict
+
+def find_longest_substring(s, k):
+    count = defaultdict(int)
+    left = ans = 0
+    for right in range(len(s)):
+        count[s[right]] += 1
+        while len(count) > k:
+            count[s[left]] -= 1
+            if count[s[left]] == 0:
+                del count[s[left]]
+            left += 1
+        ans = max(ans, right-left+1)
+    return ans
+
+print(find_longest_substring("dereje", 3))
+
+# %%
+"""
+Given the head of a singly linked list, return the middle node of the linked list.
+
+If there are two middle nodes, return the second middle node.
+
+"""
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+def middleNode(head):
+    slow = head
+    fast = head
+    
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        
+    return slow
