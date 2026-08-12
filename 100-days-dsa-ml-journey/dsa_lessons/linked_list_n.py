@@ -6,7 +6,7 @@ class Node:
 
 
 # take the head of the linked list and return the sum of the values
-
+ ## ** iterative
 def get_sum(head):
     ans = 0
     while head:
@@ -22,8 +22,16 @@ head = n1
 
 n1.next = n2
 n2.next = n3
-
 print(f'sum of values in Linked List {get_sum(head)}')
+
+
+# *** Recurssive
+def get_sum(head):
+    if not head:
+        return 0
+    return head.val + get_sum(head.next)
+
+print(f'll_values recursive sum {get_sum(head)}')
 
 
 
