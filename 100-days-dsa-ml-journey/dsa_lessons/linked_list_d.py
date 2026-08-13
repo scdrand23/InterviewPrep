@@ -56,12 +56,29 @@ def add_node(prev_node, new_node):
     new_node.next = prev_node.next 
     prev_node.next = new_node
 
+def delete_node(prev_node):
+    prev_node.next = prev_node.next.next 
 
 
-one = ListNode(23)
-two = ListNode(12)
-add_node(two, one)
-head = two 
+one = ListNode(1)
+two = ListNode(2)
+three = ListNode(3)
+four = ListNode(4)
+add_node(one, two)
+add_node(two, three)
+add_node(three, four)
+
+head = one 
+print("\n==== Original LL ===== \n")
 while head:
-    print("node: ", head.val)
+    print(f"{head.val} -> ", end="")
     head = head.next 
+print("\n")
+delete_node(two)
+head = one 
+print("\n========== After deletion  ======== \n ")
+while head:  
+    print(f"{head.val} -> ", end = "")
+    head = head.next
+
+print("\n")
