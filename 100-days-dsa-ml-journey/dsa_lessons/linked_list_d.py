@@ -32,4 +32,36 @@ def get_sum_recursive(node):
 print("LL sum recursive: ", get_sum_recursive(head))
 
 
-#%% 
+#%% date: 08/12/26
+#  
+"""
+prev_node , new_node 
+
+0 -> 1 -> 2 -> 4 
+
+5 
+
+
+I want to add 5 
+        
+0 -> 1 -> 2 -> 5->4 
+
+
+prev_node 
+
+
+"""
+# 
+def add_node(prev_node, new_node):
+    new_node.next = prev_node.next 
+    prev_node.next = new_node
+
+
+
+one = ListNode(23)
+two = ListNode(12)
+add_node(two, one)
+head = two 
+while head:
+    print("node: ", head.val)
+    head = head.next 
