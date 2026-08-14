@@ -1,3 +1,6 @@
+from signal import valid_signals
+
+
 class Node:
     def __init__(self, val):
         self.val = val
@@ -36,11 +39,10 @@ print(f'll_values recursive sum {get_sum(head)}')
 
 
 #Date: 08/12/2026 start @ 9:08
-
 def add_node(prev_node, node_2add):
-    #assuming to add node at any point 
+    #assuming to add node at any point
     #1. first rightside
-    node_2add.next = prev_node.next 
+    node_2add.next = prev_node.next
     #2.left side
     prev_node.next = node_2add
     return prev_node
@@ -56,12 +58,15 @@ while new_node:
     new_node = new_node.next
     node_index = node_index +1
 
-def print_ll_vals(head):
+def print_ll_vals(head, title):
     node_index = 1
+    print(f'******************************************** \n  Started printing {title} \n****************************************** ')
     while head:
-        print(f'node val at index {node_index}= {head.val}')
+        print(f'   - val at node index {node_index}= {head.val}')
         head = head.next
         node_index = node_index +1
+
+    print(f'\n******************************************* \n  Done printing {title} !! \n****************************************** \n\n')
 
 
 '''
@@ -83,13 +88,116 @@ def del_node(prev_node):
     prev_node.next = prev_node.next.next
     return prev_node
 
-print_ll_vals(d_nodes)
+print_ll_vals(d_nodes, "sll add node ")
 
 #let us delete node with val = 30
 print(f'smoke test for deletion')
+print_ll_vals(del_node(d_nodes), "SLL delete node")
 
 
-print_ll_vals(del_node(d_nodes))
+#Date 08/13/2026: Day-3 prep
+
+##Doubly linkedlist
+
+"""
+Given a node we add or remove on its position
+
+Example  a <---> b <---> c <----> d
+let us add nod f at node b
+
+prevNode = b.prev
+f.prev =prevNode
+f.next = b
+prevNode.next = f
+b.prev = f
+
+"""
+class DoublyNode:
+    def __init__(self,val):
+        self.val = val
+        self.next = None
+        self.prev = None
+
+
+# def print_dll_vals(node):
+#     while node:
+#         if node.val
+
+
+def add_to_doubly_ll(node,node_to_add):
+    """
+    Given a node we add or remove on its position
+
+    Example  a <---> b <---> c <----> d
+    let us add nod f at node b
+
+    prevNode = b.prev
+    f.prev =prevNode
+    f.next = b
+    prevNode.next = f
+    b.prev = f
+
+    """
+    prevNode = node.prev
+    node_to_add.next = node
+    node_to_add.prev = prevNode
+    if prevNode:
+        prevNode.next = node_to_add
+    node.prev = node_to_add
+
+    return node_to_add if prevNode is None else None
+
+
+
+
+def delete_from_doubly_ll(node):
+    prevNode = node.prev
+    nextNode  = node.next
+    prevNode.next = nextNode
+    nextNode.prev = prevNode
+
+
+#test casese
+dll1 = DoublyNode(1)
+dll2 = DoublyNode(2)
+dll3 = DoublyNode(3)
+dll4 = DoublyNode(4)
+
+dll3.next = dll4
+dll4.prev = dll3
+
+
+# add_to_doubly_ll(dll4, dll3)
+add_to_doubly_ll(dll3,dll2)
+add_to_doubly_ll(dll2,dll1)
+
+print(f'Added double lll values')
+
+head = dll1
+head2 = dll1
+print_ll_vals(dll1, "DLL add node")
+
+
+
+## Now time for testing deletion
+
+'''
+now let us delet 2 from 1 <--> 2 <--> 3 <--> 4 DLL
+now it becomes
+1 <--> 3<-->4
+
+
+'''
+delete_from_doubly_ll(head.next)
+print(f'After deleting seconde node 2 with val=2 ')
+print_ll_vals(head, "DLL delete node")
+
+
+
+
+
+
+
 
 
 
