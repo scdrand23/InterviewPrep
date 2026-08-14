@@ -82,3 +82,72 @@ while head:
     head = head.next
 
 print("\n")
+
+class DoublyListNode:
+    def __init__(self, val):
+        self.val = val 
+        self.prev = None 
+        self.next = None
+
+"""
+            node
+ 1   <->      2      <->     3   <->     4 
+
+node_to_add: 5 
+
+
+            node
+ 1   <->      2      <->     3   <->     4 
+prevN
+
+
+                 node
+ 1   <-    5 ->  2      <->     3   <->     4 
+prevN
+node_to_add.next = node 
+
+
+                 node
+ 1   <->    5 <->  2      <->     3   <->     4 
+prevN
+
+node_to_add.next = node 
+
+node_to_add.prev = prevN
+
+prevN.next = node_to_add 
+
+node.prev = node_to_add
+"""
+def doubly_add_node(node, node_to_add):
+    prev_node = node.prev 
+    node_to_add.next = node 
+    node_to_add.prev = prev_node 
+    prev_node.next = node_to_add
+    node.prev = node_to_add
+
+
+"""
+deletion 
+
+            prevN                      nextN
+ 1   <->      2      <->     3   <->     4 
+
+node_to_delete: 3 
+# easier to understand 
+prevN = node.prev
+nextN = node.next 
+prevN.next = nextN
+nextN.prev = prevN
+
+# python swap style 
+node.prev.next, node.next.prev = node.next, node.prev
+
+"""
+def doubly_delete_node(node):
+    prevN, nextN = node.prev, node.next 
+    prevN.next = nextN
+    nextN.prev = prevN 
+
+
+# Needs to be tested 
