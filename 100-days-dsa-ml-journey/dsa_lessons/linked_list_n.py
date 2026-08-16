@@ -266,7 +266,20 @@ print_ll_vals(head, '45 add from the start' )
 
 
 
+# dummy pointers assuming Seninet nodes are ther
+def get_sum_dummy(head):
+    dummy = head.next  # assuming Seninel node at the begining else dummy = head
+    val_sum = 0
+    while dummy.next: # assumming Sentinel node at end, tail ealse dummy only
+        val_sum += dummy.val
+        dummy = dummy.next
+    return val_sum
 
+
+#test case
+print(f'Using dummy pointers')
+
+print(get_sum_dummy(head), "Summ of vals, dummy pointer and sentinel")
 
 
 
