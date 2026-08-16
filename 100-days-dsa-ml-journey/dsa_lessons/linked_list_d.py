@@ -1,5 +1,8 @@
 
 #%%
+import tarfile
+
+
 class ListNode:
     def __init__(self, val):
         self.val = val
@@ -150,4 +153,103 @@ def doubly_delete_node(node):
     nextN.prev = prevN 
 
 
-# Needs to be tested 
+# one = DoublyListNode(1)
+# two = DoublyListNode(2)
+# three = DoublyListNode(3)
+# four = DoublyListNode(4)
+
+# doubly_add_node(three, four);
+# doubly_add_node(two, three );
+# doubly_add_node(one , two);
+
+
+# head = one; 
+
+# while head:
+#     print(f"{head.val} <-> ", end="")
+#     head = head.next 
+    
+
+
+# 08/15/26
+
+"""
+add from end 
+
+given:  1   <->      2      <->     3   <->     4 <-> tail 
+node to add: 5 
+
+
+step 1 : 1   <->      2      <->     3   <->     4 <  5 -> tail  # node_to_add.next = tail 
+step 2 : 1   <->      2      <->     3   <->     4 <-  5 -> tail  # node_to_add.prev = tail.prev 
+step 3 : 1   <->      2      <->     3   <->     4 <->  5 -> tail  # tail.prev.next = node_to_add
+step 4 : 1   <->      2      <->     3   <->     4 <->  5 <-> tail  # tail.prev = node_to_add
+
+
+add from start 
+
+given:  1   <->      2      <->     3   <->     4 <-> tail 
+node to add: 5 
+
+
+step 1   # node_to_add.prev = head 
+step 2   # node_to_add.next = head.next 
+step 3    # head.next.prev  = node_to_add
+step 4   # head.next = node_to_add
+
+
+removal from end 
+
+given:  1   <->      2      <->     3   <->     4 <-> tail 
+
+# 
+
+
+
+"""
+
+
+def add_to_end(node_to_add):
+    node_to_add.next = tail 
+    node_to_add.prev = tail.prev 
+    tail.prev.next = node_to_add 
+    tail.prev = node_to_add 
+
+def remove_from_end():
+    if head.next == tail:
+        return 
+    node_to_remove = tail.prev 
+    node_to_remove.prev.next = tail 
+    tail.prev = node_to_remove.prev 
+
+def add_to_start(node_to_add):
+    node_to_add.prev = head
+    node_to_add.next = head.next 
+    head.next.prev = node_to_add 
+    head.next = node_to_add
+    
+def remove_from_start():
+    if head.next == tail:
+        return
+    
+    node_to_remove = head.next
+    node_to_remove.next.prev = head
+    head.next = node_to_remove.next
+
+head = ListNode(None)
+tail = ListNode(None)
+head.next = tail 
+tail.prev = head 
+
+one_ = ListNode(1)
+two_ = ListNode(2)
+three_ = ListNode(3)
+zero_ = ListNode(0)
+add_to_end(one_)
+add_to_end(two_)
+add_to_end(three_)
+add_to_start(zero_)
+node = head.next
+while node.next:
+    print(f"{node.val} -> ", end = "")
+    node = node.next 
