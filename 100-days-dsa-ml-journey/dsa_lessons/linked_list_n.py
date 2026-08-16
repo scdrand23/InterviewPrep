@@ -62,6 +62,8 @@ def print_ll_vals(head, title):
     node_index = 1
     print(f'******************************************** \n  Started printing {title} \n****************************************** ')
     while head:
+        # if head.val==None:
+        #     continue
         print(f'   - val at node index {node_index}= {head.val}')
         head = head.next
         node_index = node_index +1
@@ -193,6 +195,74 @@ print(f'After deleting seconde node 2 with val=2 ')
 print_ll_vals(head, "DLL delete node")
 
 
+
+# Date 08/15/2026
+
+
+'''
+sentinel nodes : nodes at the start and and and end of the DLL, with value None
+'''
+
+tail = DoublyNode(None)
+head = DoublyNode(None)
+
+def add_to_end(node_to_add):
+    node_to_add.next = tail
+    node_to_add.prev = tail.prev
+    tail.prev.next = node_to_add
+    tail.prev = node_to_add
+
+
+
+def remove_from_end():
+    if head.next == tail:
+        return
+    node_to_remove = tail.prev
+    node_to_remove.prev.next = tail
+    tail.prev = node_to_remove.prev
+
+def add_to_start(node_to_add):
+    node_to_add.prev = head
+    node_to_add.next = head.next
+    head.next.prev = node_to_add
+    head.next = node_to_add
+
+def remove_from_start():
+    if head.next == tail:
+        return
+    node_to_remove = head.next
+    node_to_remove.next.prev = head
+    head.next = node_to_remove.next
+
+head.next = tail
+tail.prev = head
+sdl1 = DoublyNode(5)
+sdl2 = DoublyNode(15)
+sdl3 = DoublyNode(25)
+sdl4 = DoublyNode(35)
+add_to_end(sdl1)
+add_to_end(sdl2)
+add_to_end(sdl3)
+add_to_end(sdl4)
+
+print_ll_vals(head, "4 values added with sentinel")
+
+# now delete from the end
+print(f'Removing node from the end in this cas 35 needs to be removed')
+remove_from_end()
+print_ll_vals(head, '35 Deleted from DLL' )
+
+# now delete from the start
+print(f'Removing node from the start in this cas 5 needs to be removed')
+remove_from_start()
+print_ll_vals(head, '5 Deleted from the start of DLL ' )
+
+
+# add to the start
+print(f'Adding from the start')
+sdl5 = DoublyNode(45)
+add_to_start(sdl5)
+print_ll_vals(head, '45 add from the start' )
 
 
 
