@@ -312,4 +312,23 @@ print_ll_vals(head, 'all vals' )
 print(f'the mid val is {get_middle(head)}')
 
 
+# 2nd Cycle detector
+
+def has_cycle(head):
+    '''
+    Logic: fast runs and comes back and catch the slower: example 100 M race
+
+    '''
+    slow = head
+    fast = head
+
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next
+
+        if slow == fast:
+            print(slow.val, fast.val)
+            return True
+    return False
+
 
