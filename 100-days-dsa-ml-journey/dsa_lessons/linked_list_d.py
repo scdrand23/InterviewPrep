@@ -306,8 +306,26 @@ def get_middle(head):
 
     return slow.val 
 
-head = one;
-# while head:  
-#     print(f"{head.val} -> ", end = "")
-#     head = head.next
-print(f" \n Middle for the above LL get is {get_middle(head)}")
+# head = one;
+# # while head:  
+# #     print(f"{head.val} -> ", end = "")
+# #     head = head.next
+# print(f" \n Middle for the above LL get is {get_middle(head)}")
+
+
+def has_cycle(head):
+    slow = head 
+    fast = head 
+
+    while fast and fast.next:
+        slow = slow.next 
+        fast = fast.next.next 
+        if slow == fast:
+            return True 
+        
+    return False 
+
+
+
+
+    
