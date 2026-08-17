@@ -283,6 +283,33 @@ print(get_sum_dummy(head), "Summ of vals, dummy pointer and sentinel")
 
 
 
+#Date 08/16/2026
+'''
+Fast and Slow pointer
+
+'''
+
+def get_middle(head):
+    '''
+    using fast and slow pointers and returning mid
+    '''
+    slow = head
+    fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow.val
+
+
+
+# test
+
+sdl6 = DoublyNode(55)
+add_to_start(sdl6)
+sdl7 = DoublyNode(65)
+add_to_start(sdl7)
+print_ll_vals(head, 'all vals' )
+print(f'the mid val is {get_middle(head)}')
 
 
 
