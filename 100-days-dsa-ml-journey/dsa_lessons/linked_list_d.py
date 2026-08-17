@@ -306,11 +306,11 @@ def get_middle(head):
 
     return slow.val 
 
-# add_node(five, three)
-head = one;
-while head:  
-    print(f"{head.val} -> ", end = "")
-    head = head.next
+# # add_node(five, three)
+# head = one;
+# while head:  
+#     print(f"{head.val} -> ", end = "")
+#     head = head.next
 # print(f" \n Middle for the above LL get is {get_middle(head)}")
 
 head = one 
@@ -327,6 +327,26 @@ def has_cycle(head):
     return False 
 
 
-print(f" \n Has cycle is {has_cycle(head)}")
+# print(f" \n Has cycle is {has_cycle(head)}")
 
-    
+def find_node(head, k):
+
+    slow = head 
+    fast = head 
+
+    for i in range(k):
+        fast = fast.next 
+
+
+    while fast:
+        slow = slow.next 
+        fast = fast.next
+
+
+    return slow  
+
+print(find_node(head, 1).val)
+
+while head:  
+    print(f"{head.val} -> ", end = "")
+    head = head.next
