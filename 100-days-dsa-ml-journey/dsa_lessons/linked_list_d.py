@@ -2,6 +2,8 @@
 #%%
 import tarfile
 
+from cgi import print_arguments
+
 
 class ListNode:
     def __init__(self, val):
@@ -11,28 +13,28 @@ class ListNode:
 one = ListNode(100)
 two = ListNode(250)
 three = ListNode(350)
-one.next = two 
-two.next = three 
-head = one 
-def get_sum(head):
-    ans = 0
-    while head:
-        ans += head.val 
-        head = head.next 
+# one.next = two 
+# two.next = three 
+# head = one 
+# def get_sum(head):
+#     ans = 0
+#     while head:
+#         ans += head.val 
+#         head = head.next 
 
-    return ans 
+#     return ans 
 
-# test 
-print("LL sum", get_sum(head))
+# # test 
+# print("LL sum", get_sum(head))
 
-#%%
+# #%%
 
-def get_sum_recursive(node):
-    if not node:
-        return 0 
-    return node.val + get_sum_recursive(node.next)
+# def get_sum_recursive(node):
+#     if not node:
+#         return 0 
+#     return node.val + get_sum_recursive(node.next)
 
-print("LL sum recursive: ", get_sum_recursive(head))
+# print("LL sum recursive: ", get_sum_recursive(head))
 
 
 #%% date: 08/12/26
@@ -71,20 +73,20 @@ add_node(one, two)
 add_node(two, three)
 add_node(three, four)
 
-head = one 
-print("\n==== Original LL ===== \n")
-while head:
-    print(f"{head.val} -> ", end="")
-    head = head.next 
-print("\n")
-delete_node(two)
-head = one 
-print("\n========== After deletion  ======== \n ")
-while head:  
-    print(f"{head.val} -> ", end = "")
-    head = head.next
+# head = one 
+# print("\n==== Original LL ===== \n")
+# while head:
+#     print(f"{head.val} -> ", end="")
+#     head = head.next 
+# print("\n")
+# delete_node(two)
+# head = one 
+# print("\n========== After deletion  ======== \n ")
+# while head:  
+#     print(f"{head.val} -> ", end = "")
+#     head = head.next
 
-print("\n")
+# print("\n")
 
 class DoublyListNode:
     def __init__(self, val):
@@ -253,3 +255,31 @@ node = head.next
 while node.next:
     print(f"{node.val} -> ", end = "")
     node = node.next 
+
+
+def get_sum(head):
+    
+    sum_ = 0 
+
+    dummy = head.next
+
+    while dummy.next:
+        print(f"\n +++ Adding Node Value {dummy.val} ...")
+        sum_ += dummy.val 
+        dummy = dummy.next 
+    return sum_ 
+
+
+print(f" \n Sum of the above doubly linked list {get_sum(head)}")
+
+print(" \n After sum head is unaffected !!! ")
+node = head.next
+while node.next:
+    print(f"{node.val} -> ", end = "")
+    node = node.next 
+
+
+"""
+
+
+"""
