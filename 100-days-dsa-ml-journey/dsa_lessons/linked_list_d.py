@@ -71,12 +71,12 @@ add_node(one, two)
 add_node(two, three)
 add_node(three, four)
 add_node(four, five)
-head = one 
-print("\n==== Original LL ===== \n")
-while head:
-    print(f"{head.val} -> ", end="")
-    head = head.next 
-# print("\n")
+# head = one 
+# print("\n==== Original LL ===== \n")
+# while head:
+#     print(f"{head.val} -> ", end="")
+#     head = head.next 
+# # print("\n")
 # delete_node(two)
 # head = one 
 # print("\n========== After deletion  ======== \n ")
@@ -280,7 +280,7 @@ def get_sum(head):
 
 """
 
-1 -> 2 -> 3 -> 4 -> 5
+1 -> 2 -> 3 -> 4 -> 5 -> 3 
 s
 f 
 
@@ -306,13 +306,14 @@ def get_middle(head):
 
     return slow.val 
 
-# head = one;
-# # while head:  
-# #     print(f"{head.val} -> ", end = "")
-# #     head = head.next
+# add_node(five, three)
+head = one;
+while head:  
+    print(f"{head.val} -> ", end = "")
+    head = head.next
 # print(f" \n Middle for the above LL get is {get_middle(head)}")
 
-
+head = one 
 def has_cycle(head):
     slow = head 
     fast = head 
@@ -326,6 +327,6 @@ def has_cycle(head):
     return False 
 
 
-
+print(f" \n Has cycle is {has_cycle(head)}")
 
     
