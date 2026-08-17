@@ -332,3 +332,20 @@ def has_cycle(head):
     return False
 
 
+
+# kth node form the end of the linked list given the head
+
+def find_node(head, k):
+    slow = head
+    fast = head
+    for _ in range(k):
+        fast = fast.next 
+    while fast:
+        fast = fast.next  
+        slow = slow.next 
+    return slow
+
+#test
+slow = find_node(head, 3)
+
+print(f'3rd from the end {slow.val}')
