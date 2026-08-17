@@ -1,8 +1,5 @@
 
 #%%
-import tarfile
-
-from cgi import print_arguments
 
 
 class ListNode:
@@ -10,9 +7,9 @@ class ListNode:
         self.val = val
         self.next = None
 
-one = ListNode(100)
-two = ListNode(250)
-three = ListNode(350)
+# one = ListNode(100)
+# two = ListNode(250)
+# three = ListNode(350)
 # one.next = two 
 # two.next = three 
 # head = one 
@@ -69,15 +66,16 @@ one = ListNode(1)
 two = ListNode(2)
 three = ListNode(3)
 four = ListNode(4)
+five = ListNode(5)
 add_node(one, two)
 add_node(two, three)
 add_node(three, four)
-
-# head = one 
-# print("\n==== Original LL ===== \n")
-# while head:
-#     print(f"{head.val} -> ", end="")
-#     head = head.next 
+add_node(four, five)
+head = one 
+print("\n==== Original LL ===== \n")
+while head:
+    print(f"{head.val} -> ", end="")
+    head = head.next 
 # print("\n")
 # delete_node(two)
 # head = one 
@@ -240,21 +238,21 @@ def remove_from_start():
 
 head = ListNode(None)
 tail = ListNode(None)
-head.next = tail 
-tail.prev = head 
+# head.next = tail 
+# tail.prev = head 
 
-one_ = ListNode(1)
-two_ = ListNode(2)
-three_ = ListNode(3)
-zero_ = ListNode(0)
-add_to_end(one_)
-add_to_end(two_)
-add_to_end(three_)
-add_to_start(zero_)
-node = head.next
-while node.next:
-    print(f"{node.val} -> ", end = "")
-    node = node.next 
+# one_ = ListNode(1)
+# two_ = ListNode(2)
+# three_ = ListNode(3)
+# zero_ = ListNode(0)
+# add_to_end(one_)
+# add_to_end(two_)
+# add_to_end(three_)
+# add_to_start(zero_)
+# node = head.next
+# while node.next:
+#     print(f"{node.val} -> ", end = "")
+#     node = node.next 
 
 
 def get_sum(head):
@@ -270,16 +268,46 @@ def get_sum(head):
     return sum_ 
 
 
-print(f" \n Sum of the above doubly linked list {get_sum(head)}")
+# print(f" \n Sum of the above doubly linked list {get_sum(head)}")
 
-print(" \n After sum head is unaffected !!! ")
-node = head.next
-while node.next:
-    print(f"{node.val} -> ", end = "")
-    node = node.next 
+# print(" \n After sum head is unaffected !!! ")
+# node = head.next
+# while node.next:
+#     print(f"{node.val} -> ", end = "")
+#     node = node.next 
 
-
-"""
-
+# date 08/16/26
 
 """
+
+1 -> 2 -> 3 -> 4 -> 5
+s
+f 
+
+1 -> 2 -> 3 -> 4 -> 5
+     s
+         f 
+
+        
+1 -> 2 -> 3 -> 4 -> 5
+         s
+                   f 
+
+    
+"""
+
+def get_middle(head):
+    slow = head
+    fast = head 
+
+    while fast and fast.next:
+        slow = slow.next 
+        fast = fast.next.next 
+
+    return slow.val 
+
+head = one;
+# while head:  
+#     print(f"{head.val} -> ", end = "")
+#     head = head.next
+print(f" \n Middle for the above LL get is {get_middle(head)}")
