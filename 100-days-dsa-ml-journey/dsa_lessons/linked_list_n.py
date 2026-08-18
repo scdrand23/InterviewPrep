@@ -351,6 +351,8 @@ slow = find_node(head, 3)
 print(f'3rd from the end {slow.val}')
 
 
+
+
 #Date 08/17/2026
 
 # Definition for singly-linked list.
@@ -359,12 +361,49 @@ print(f'3rd from the end {slow.val}')
 #         self.val = val
 #         self.next = next
 
-class Solution:
-    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        slow = head
-        fast = head
+def retun_middle_node(head):
+    slow = head
+    fast = head
 
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-        return slow
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow
+
+#Remove duplicates from Sorted list
+
+def deleteDuplicates(head):
+    cur = head
+    while cur and cur.next:
+        if cur.val==cur.next.val :
+            cur.next = cur.next.next
+        else:
+            cur = cur.next 
+    return head
+
+#test
+
+print(f'before deduplicate')
+add_to_start(DoublyNode(65))
+add_to_start(DoublyNode(65))
+add_to_start(DoublyNode(65))
+add_to_end(DoublyNode(25))
+add_to_end(DoublyNode(25))
+add_to_end(DoublyNode(25))
+print_ll_vals(head,"Before deduplicating")
+
+deleteDuplicates(head)
+
+print('After deduplicating')
+print_ll_vals(head, 'After deduplicating')
+
+
+
+
+
+
+
+
+
+
+
