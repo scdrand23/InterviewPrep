@@ -339,13 +339,32 @@ def find_node(head, k):
     slow = head
     fast = head
     for _ in range(k):
-        fast = fast.next 
+        fast = fast.next
     while fast:
-        fast = fast.next  
-        slow = slow.next 
+        fast = fast.next
+        slow = slow.next
     return slow
 
-#test
+#testkths
 slow = find_node(head, 3)
 
 print(f'3rd from the end {slow.val}')
+
+
+#Date 08/17/2026
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        slow = head
+        fast = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
