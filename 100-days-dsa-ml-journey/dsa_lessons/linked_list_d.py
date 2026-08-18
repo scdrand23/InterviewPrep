@@ -67,10 +67,12 @@ two = ListNode(2)
 three = ListNode(3)
 four = ListNode(4)
 five = ListNode(5)
+six = ListNode(6)
 add_node(one, two)
 add_node(two, three)
 add_node(three, four)
 add_node(four, five)
+add_node(five, six)
 # head = one 
 # print("\n==== Original LL ===== \n")
 # while head:
@@ -345,8 +347,24 @@ def find_node(head, k):
 
     return slow  
 
-print(find_node(head, 1).val)
 
-while head:  
-    print(f"{head.val} -> ", end = "")
-    head = head.next
+def middle_node(head):
+    slow = head 
+    fast = head 
+
+    while fast and fast.next:
+        slow = slow.next 
+        fast = fast.next.next 
+
+    return slow 
+
+
+
+
+
+mid_node = middle_node(head)
+# print(find_node(head, 1).val)
+
+while mid_node:  
+    print(f"{mid_node.val} -> ", end = "")
+    mid_node = mid_node.next
