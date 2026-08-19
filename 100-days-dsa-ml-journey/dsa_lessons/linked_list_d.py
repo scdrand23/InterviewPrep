@@ -315,7 +315,7 @@ def get_middle(head):
 #     head = head.next
 # print(f" \n Middle for the above LL get is {get_middle(head)}")
 
-head = one 
+# head = one 
 def has_cycle(head):
     slow = head 
     fast = head 
@@ -347,7 +347,7 @@ def find_node(head, k):
 
     return slow  
 
-
+# 08/17/26
 def middle_node(head):
     slow = head 
     fast = head 
@@ -362,39 +362,39 @@ def middle_node(head):
 
 
 
-mid_node = middle_node(head)
-# print(find_node(head, 1).val)
+# mid_node = middle_node(head)
+# # print(find_node(head, 1).val)
 
-while mid_node:  
-    print(f"{mid_node.val} -> ", end = "")
-    mid_node = mid_node.next
+# while mid_node:  
+#     print(f"{mid_node.val} -> ", end = "")
+#     mid_node = mid_node.next
 
-     """
-        1 -> 1 -> 1 -> 2 
+"""
+1 -> 1 -> 1 -> 2 
 
-        use dummy and dummy.next 
+use dummy and dummy.next 
 
-        if dummy and dummy.next have same val: skip 
-        else move the dummy 
+if dummy and dummy.next have same val: skip 
+else move the dummy 
 
-        eg. 
+eg. 
 
-        1 -> 1 -> 1 -> 2
-        1. d
+1 -> 1 -> 1 -> 2
+1. d
 
-        2. d = d.next , so , d.next = d.next.next 
+2. d = d.next , so , d.next = d.next.next 
 
-        => 1  -> 1 -> 2   
-        d 
-        3. d = d.next , so , d.next = d.next.next 
+=> 1  -> 1 -> 2   
+d 
+3. d = d.next , so , d.next = d.next.next 
 
-        1 -> 2 
-        d  
-        now d != d.next => d = d.next 
+1 -> 2 
+d  
+now d != d.next => d = d.next 
 
-        1 -> 2 
-           d  
-     """   
+1 -> 2 
+    d  
+"""   
 
 def remove_duplicates(head):
 
@@ -407,3 +407,38 @@ def remove_duplicates(head):
             dummy = dummy.next 
 
     return head 
+
+
+# 08/18/26 
+"""
+
+1 <- 2 <- 3
+          prev     c = cn = None   
+prev = None 
+
+"""
+def reverse_linked_list(head):
+    prev = None 
+    curr = head 
+
+    while curr: 
+        next_node = curr.next 
+        curr.next = prev 
+        prev = curr 
+        curr = next_node 
+
+    return prev 
+head = one 
+dummy = head 
+print(" \n \n ===== Original LL \n")
+while dummy:  
+    print(f" {dummy.val} -> ", end = "")
+    dummy = dummy.next
+reversed_head = reverse_linked_list(head)
+
+    
+print(" \n \n ====== Reversed LL ======= \n")
+while reversed_head:  
+    print(f" {reversed_head.val} -> ", end = "")
+    reversed_head = reversed_head.next
+
