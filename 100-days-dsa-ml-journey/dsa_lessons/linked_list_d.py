@@ -368,3 +368,42 @@ mid_node = middle_node(head)
 while mid_node:  
     print(f"{mid_node.val} -> ", end = "")
     mid_node = mid_node.next
+
+     """
+        1 -> 1 -> 1 -> 2 
+
+        use dummy and dummy.next 
+
+        if dummy and dummy.next have same val: skip 
+        else move the dummy 
+
+        eg. 
+
+        1 -> 1 -> 1 -> 2
+        1. d
+
+        2. d = d.next , so , d.next = d.next.next 
+
+        => 1  -> 1 -> 2   
+        d 
+        3. d = d.next , so , d.next = d.next.next 
+
+        1 -> 2 
+        d  
+        now d != d.next => d = d.next 
+
+        1 -> 2 
+           d  
+     """   
+
+def remove_duplicates(head):
+
+    dummy = head 
+
+    while dummy and dummy.next:
+        if dummy.val == dummy.next.val:
+            dummy.next = dummy.next.next 
+        else:
+            dummy = dummy.next 
+
+    return head 
