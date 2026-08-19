@@ -64,7 +64,10 @@ def print_ll_vals(head, title):
     while head:
         # if head.val==None:
         #     continue
-        print(f'   - val at node index {node_index}= {head.val}')
+        if head.next:
+            print(f'{head.val} --> ',end="")
+        else:
+            print(head.val,end="")
         head = head.next
         node_index = node_index +1
 
@@ -283,7 +286,7 @@ print(get_sum_dummy(head), "Summ of vals, dummy pointer and sentinel")
 
 
 
-#Date 08/16/2026
+#Date 08/16/2026 2nd day in row
 '''
 Fast and Slow pointer
 
@@ -353,7 +356,7 @@ print(f'3rd from the end {slow.val}')
 
 
 
-#Date 08/17/2026
+#Date 08/17/2026 3rd day in row
 
 # Definition for singly-linked list.
 # class ListNode:
@@ -398,10 +401,38 @@ print('After deduplicating')
 print_ll_vals(head, 'After deduplicating')
 
 
+#Date 08/18/2026 - 4th date in row
+
+''' Topic: Reverse Linked List '''
+
+def reverse_ll(head):
+    prev = None # as reversed the last node.next must be None
+    curr = head
+    while curr:
+        nextNode = curr.next 
+        curr.next  = prev
+        prev = curr
+        curr = nextNode
+
+    return prev
 
 
+#test case
+n1 = Node(11)
+n2 = Node(22)
+n3 = Node(33)
+head = n1
 
 
+n1.next = n2
+n2.next = n3
+
+print('beforere reverse')
+print_ll_vals(head, "before reverse")
+
+print('after reverse')
+rev= reverse_ll(head)
+print_ll_vals(rev, 'After reverse')
 
 
 
