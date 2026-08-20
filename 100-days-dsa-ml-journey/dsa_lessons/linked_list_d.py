@@ -428,17 +428,76 @@ def reverse_linked_list(head):
         curr = next_node 
 
     return prev 
-head = one 
-dummy = head 
-print(" \n \n ===== Original LL \n")
-while dummy:  
-    print(f" {dummy.val} -> ", end = "")
-    dummy = dummy.next
-reversed_head = reverse_linked_list(head)
+# head = one 
+# dummy = head 
+# print(" \n \n ===== Original LL ===== ")
+# while dummy:  
+#     print(f" {dummy.val} -> ", end = "")
+#     dummy = dummy.next
+# reversed_head = reverse_linked_list(head)
 
     
-print(" \n \n ====== Reversed LL ======= \n")
-while reversed_head:  
-    print(f" {reversed_head.val} -> ", end = "")
-    reversed_head = reversed_head.next
+# print(" \n \n ====== Reversed LL ======= ")
+# while reversed_head:  
+#     print(f" {reversed_head.val} -> ", end = "")
+#     reversed_head = reversed_head.next
 
+
+"""
+
+1 -> 2 -> 3 -> 4 -> 5 -> 6 
+h.n.n 
+2 <-> 1 , we will lose after 2 
+out: 2 -> 1 -> 4 -> 3 -> 6 -> 5 
+
+
+
+Normally we would solve this 
+
+
+next_node = head.next.next 
+head.next.next = head 
+prev = head 
+head = next_node 
+
+"""
+# 08/19/26 
+# swap pairs 
+
+
+def swap_pairs(head):
+    if not head or not head.next:
+        return head 
+
+    dummy = head.next 
+    prev = None 
+
+    while head and head.next:
+        if prev:
+            prev.next = head.next 
+
+        prev = head 
+
+        next_node = head.next.next 
+        head.next.next = head 
+
+        head.next = next_node 
+        head = next_node 
+
+
+    return dummy 
+
+
+swap_head = one 
+swap_dummy = swap_head 
+print(" \n \n ===== Original LL ===== ")
+while  swap_head:  
+    print(f" {swap_head.val} -> ", end = "")
+    swap_head = swap_head.next
+swapped_head = swap_pairs(swap_dummy)
+
+    
+print(" \n \n ====== swapped LL ======= ")
+while swapped_head:  
+    print(f" {swapped_head.val} -> ", end = "")
+    swapped_head = swapped_head.next
