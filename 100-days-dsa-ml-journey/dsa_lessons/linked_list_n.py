@@ -421,11 +421,19 @@ def reverse_ll(head):
 n1 = Node(11)
 n2 = Node(22)
 n3 = Node(33)
+n4 = Node(44)
+n5 = Node(55)
+n6= Node(66)
 head = n1
-
+head2 = n1
 
 n1.next = n2
 n2.next = n3
+n3.next = n4
+n4.next = n5
+n5.next = n6
+
+
 
 print('beforere reverse')
 print_ll_vals(head, "before reverse")
@@ -434,7 +442,52 @@ print('after reverse')
 rev= reverse_ll(head)
 print_ll_vals(rev, 'After reverse')
 
+print_ll_vals(head2,"smoke test")
+
+
+# Date 08/19/2026
 
 
 
+def swapPairs(head):
+    if not head or not head.next:
+        return head
 
+    dummy = head.next 
+    prev = None
+
+    while head  and head.next:
+        if prev:
+            prev.next = head.next
+
+        prev = head
+        next_node = head.next.next
+        head.next.next = head
+
+        head.next = next_node
+
+        head = next_node
+    return dummy
+
+
+# test case
+n1 = Node(11)
+n2 = Node(22)
+n3 = Node(33)
+n4 = Node(44)
+n5 = Node(55)
+n6= Node(66)
+head = n1
+head2 = n1
+
+n1.next = n2
+n2.next = n3
+n3.next = n4
+n4.next = n5
+n5.next = n6
+print(f'before')
+print_ll_vals(head,'Before pair swap')
+
+swap_node = swapPairs(head)
+
+print_ll_vals(swap_node,'after pair swap')
