@@ -488,16 +488,89 @@ def swap_pairs(head):
     return dummy 
 
 
-swap_head = one 
-swap_dummy = swap_head 
-print(" \n \n ===== Original LL ===== ")
-while  swap_head:  
-    print(f" {swap_head.val} -> ", end = "")
-    swap_head = swap_head.next
-swapped_head = swap_pairs(swap_dummy)
+# swap_head = one 
+# swap_dummy = swap_head 
+# print(" \n \n ===== Original LL ===== ")
+# while  swap_head:  
+#     print(f" {swap_head.val} -> ", end = "")
+#     swap_head = swap_head.next
+# swapped_head = swap_pairs(swap_dummy)
 
     
-print(" \n \n ====== swapped LL ======= ")
-while swapped_head:  
-    print(f" {swapped_head.val} -> ", end = "")
-    swapped_head = swapped_head.next
+# print(" \n \n ====== swapped LL ======= ")
+# while swapped_head:  
+#     print(f" {swapped_head.val} -> ", end = "")
+#     swapped_head = swapped_head.next
+
+# 08/20/26
+
+
+"""
+1 -> 2 -> 3 -> 4 -> 5 
+
+l = 2 , r = 4  
+
+out: 1 -> 4 -> 3 -> 2 -> 5
+
+
+IF it was normal, we would start  and reverse with the following criteria 
+
+-> holding nextNode
+-> initializing prev to none 
+-> Start from head node with curr , and then update curr.next = prev, prev = curr and curr = nextNode 
+
+
+prev = [2] 
+curr = [3]  
+next_node = [4] 
+
+ 2 <-   3 <- 4  <- 1->   5 
+            ^     ^     ^    
+            |     |     |     
+            prev  curr  next_node
+
+
+
+for i in range(l): 
+    prev = curr 
+    curr = curr.next 
+
+
+
+
+"""
+
+class Solution:
+    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        
+        prev = None 
+        
+        curr = head 
+        
+        for _ in range(left-1):
+            prev = curr 
+            curr = curr.next 
+         
+        dummy = prev 
+        prev = curr 
+        curr = curr.next 
+        # prev = left_th node , curr = prev.next , ... 
+        
+        for _ in range(right - left):
+            next_node = curr.next 
+            curr.next = prev 
+            prev = curr 
+            curr = next_node 
+            
+            
+       # 1 -> 2 <- 3 <- 4  
+   
+        if dummy:
+            dummy.next.next = curr 
+            dummy.next = prev
+            return head
+        else:
+            head.next = curr
+            return prev
+
+            
