@@ -3,9 +3,9 @@
 
 
 class ListNode:
-    def __init__(self, val):
+    def __init__(self, val, next = None):
         self.val = val
-        self.next = None
+        self.next = next
 
 # one = ListNode(100)
 # two = ListNode(250)
@@ -540,37 +540,107 @@ for i in range(l):
 
 """
 
-class Solution:
-    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
-        
-        prev = None 
-        
-        curr = head 
-        
-        for _ in range(left-1):
-            prev = curr 
-            curr = curr.next 
-         
-        dummy = prev 
+# class Solution:
+def reverseBetween(head, left,  right):
+    
+    prev = None 
+    
+    curr = head 
+    
+    for _ in range(left-1):
         prev = curr 
         curr = curr.next 
-        # prev = left_th node , curr = prev.next , ... 
         
-        for _ in range(right - left):
-            next_node = curr.next 
-            curr.next = prev 
-            prev = curr 
-            curr = next_node 
-            
-            
-       # 1 -> 2 <- 3 <- 4  
-   
-        if dummy:
-            dummy.next.next = curr 
-            dummy.next = prev
-            return head
-        else:
-            head.next = curr
-            return prev
+    dummy = prev 
+    prev = curr 
+    curr = curr.next 
+    # prev = left_th node , curr = prev.next , ... 
+    
+    for _ in range(right - left):
+        next_node = curr.next 
+        curr.next = prev 
+        prev = curr 
+        curr = next_node 
+        
+        
+    # 1 -> 2 <- 3 <- 4  
+
+    if dummy:
+        dummy.next.next = curr 
+        dummy.next = prev
+        return head
+    else:
+        head.next = curr
+        return prev
 
             
+# Better principled solution 
+
+
+"""
+1 -> 2 -> 3 -> 4 -> 5 -> 6 
+          l         r 
+l, r = 3, 5 th , reverse between l and r 
+
+
+out: 1 -> 2 -> 5 -> 4 -> 3 -> 6 
+
+Approach:  traverse till left, start reversing with LL reverse alg  for (r - l )  --- exactly #(r - l) reversals --- make sure to do rewiring of by using  before l and after r nodes 
+-> To handle the edge case full reversal , insert sentinel node before head , and ret sent.next 
+
+
+
+"""
+# 08/21/26
+
+def reverse_linked_list_between_nodes(head, left , right):
+    sentinel = ListNode(-1, head)
+    prev, curr = sentinel, head 
+
+    for _ in range(left - 1): 
+        prev, curr = curr, curr.next 
+
+    anchor = prev 
+    prev , curr = curr, curr.next 
+    # sentinel -> 1 -> 2 -> 3 -> 4 -> 5 -> 6
+    #                 anc   pr   cur 
+    
+    for _ in range(right - left):
+
+        curr.next , prev , curr = prev , curr, curr.next 
+
+    # sentinel -> 1 -> 2 -> [ 3 <- 4 <- 5 ] -> 6
+    #                 anc              pr      cur 
+    # 2 -> [ 5 --->>> 3 ] -> 6 
+
+    anchor.next.next = curr 
+    anchor.next = prev 
+
+    # sentinel -> 1 -> 2 -> [ 5 -> 4 -> 3] -> 6
+    # After all this we need to return sentinel.next 
+
+    # return sentinle.next 
+
+
+    return sentinel.next 
+
+
+# Test 
+
+
+orig_head = one 
+print(" \n \n ===== Original LL ===== ")
+while orig_head:  
+    print(f" {orig_head.val} -> ", end = "")
+    orig_head = orig_head.next
+
+head = one  
+left, right = 3,  5 
+rev_head = reverse_linked_list_between_nodes(head, left, right)
+
+    
+print(f" \n \n ====== Between {left} and {right} reversed  LL ======= ")
+while rev_head:  
+    print(f" {rev_head.val} -> ", end = "")
+    rev_head = rev_head.next
+
