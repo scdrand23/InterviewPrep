@@ -491,3 +491,89 @@ print_ll_vals(head,'Before pair swap')
 swap_node = swapPairs(head)
 
 print_ll_vals(swap_node,'after pair swap')
+
+
+
+#Date 08/20/2026
+'''
+
+Input: head = [1,2,3,4,5], left = 2, right = 4
+
+Output: [1,4,3,2,5]
+
+
+'''
+def reverseBetween( head,left, right):
+    if not head or not head.next or left == right:
+        return head
+
+    dummy = Node(None)          # sentinel so left == 1 isn't a special case
+    dummy.next = head
+
+    # 1) Walk so that `before` is the node just before position `left`
+    before = dummy
+    for _ in range(left - 1):
+        before = before.next
+
+    # 2) Reverse the sublist [left, right]
+    curr = before.next           # first node of the sublist (will become its tail)
+    prev = None
+    for _ in range(right - left + 1):
+        next_node = curr.next
+        curr.next = prev
+        prev = curr
+        curr = next_node
+
+    # 3) Reconnect: before -> new front, old front -> node after right
+    before.next.next = curr      # old front (now tail) points past the section
+    before.next = prev           # node before section points to new front
+
+    return dummy.next
+
+
+# test case 
+'''
+Input: head = [1,2,3,4,5], left = 2, right = 4
+
+Output: [1,4,3,2,5]
+
+'''
+
+n1 = Node(1)
+n2 = Node(2)
+n3 = Node(3)
+n4 = Node(4)
+n5 = Node(5)
+
+n1.next = n2
+n2.next = n3
+n3.next = n4
+n4.next = n5
+
+head = n1
+
+print_ll_vals(head,'Before reverse between')
+
+reversed_bn = reverseBetween(head,2,4)
+
+print_ll_vals(reversed_bn,'After reverse between')
+
+
+
+
+#Date 08/21/2026
+
+
+
+
+
+
+
+#Date 08/22/2026
+
+
+
+
+
+
+#Date 08/23/2026
