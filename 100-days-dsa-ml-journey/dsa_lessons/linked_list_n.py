@@ -577,3 +577,11 @@ print_ll_vals(reversed_bn,'After reverse between')
 
 
 #Date 08/23/2026
+
+''''
+Stacks
+
+'''
+
+
+
