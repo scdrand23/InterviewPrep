@@ -69,6 +69,26 @@ print(f'The result is {remove_duplicates("abbaca")}')
 
 #p-2: Backspace String Compare
 
+def backspaceCompare(s:str, t:str) -> bool:
+        def build_string(s):
+            stack = []
+            for c in s:
+                if c != '#':
+                    stack.append(c)
+                elif stack:
+                    stack.pop()
+            return stack
+        return build_string(s) == build_string(t)
+
+
+#test case
+
+print("\n Expected outputs: True, True, False \n and actual:",backspaceCompare("ab#c","ad#c"), backspaceCompare("ab##","c#d#" ), backspaceCompare("a#c"
+,"b"
+) )
+
+
+
 
 
 #p-3: Simplify Path
