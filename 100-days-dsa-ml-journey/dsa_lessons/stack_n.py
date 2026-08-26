@@ -77,7 +77,7 @@ def backspaceCompare(s:str, t:str) -> bool:
                     stack.append(c)
                 elif stack:
                     stack.pop()
-            return stack
+            return "".join(stack)
         return build_string(s) == build_string(t)
 
 
