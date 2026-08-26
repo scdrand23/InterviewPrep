@@ -43,3 +43,32 @@ def test_isvalid(test):
 
 
 test_isvalid(test)
+
+
+
+#Date 08/25/2026
+
+#p-1: Remove All Adjacent Duplicates In String
+
+def remove_duplicates(s:str)->str:
+        history = []
+        for c in s:
+            if history and  c  == history[-1]:
+                history.pop()
+            else:
+                history.append(c)
+        return "".join(history)
+
+
+#test
+
+print(f'The result is {remove_duplicates("abbaca")}')
+
+
+
+
+#p-2: Backspace String Compare
+
+
+
+#p-3: Simplify Path
