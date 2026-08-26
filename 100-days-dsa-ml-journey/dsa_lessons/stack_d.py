@@ -43,8 +43,8 @@ def valid_parentheses(s):
     return not stack 
 
 
-print(f" Input: '{[[()]]}', Is this valid parantheses? Answer: {valid_parentheses("{[[()]]}")}")
-print(f" Input: '[[()]', Is this valid parantheses? Answer: {valid_parentheses("[[()]")}")
+# print(f" Input: '{[[()]]}', Is this valid parantheses? Answer: {valid_parentheses("{[[()]]}")}")
+# print(f" Input: '[[()]', Is this valid parantheses? Answer: {valid_parentheses("[[()]")}")
 
 # Given s = abba ... , remove duplicates iteratively 
 # 08/25/26
@@ -86,12 +86,49 @@ def remove_duplicates(s):
 
     return "".join(stack)
 
-tests = ["abba", "abaca", "acbbca"] 
-exp_outs = ["", "abaca", ""]
+# tests = ["abba", "abaca", "acbbca"] 
+# exp_outs = ["", "abaca", ""]
+
+# for (test, exp_out) in zip(tests, exp_outs):
+#     alg_out = remove_duplicates(test)
+#     if alg_out == exp_out:
+#         print(f" Passed test case : Input {test} , Expected Output: {exp_out}, Algorithm {alg_out}")
+#     else:
+#         print(f" Failed test case : Input {test} , Expected Output: {exp_out}, Algorithm {alg_out}")
+
+def backsapce_compare(s, t):
+    """
+    My approach: 
+
+    Use stack     
+
+    Find net / actual string for both inputs
+
+    """
+    stack_s  = []
+    stack_t = []
+
+    for c in s:
+        if stack_s and c == "#":
+            stack_s.pop()
+        else:
+            stack_s.append(c)   
+
+    for c in t:
+        if stack_t and c == "#":
+            stack_t.pop()
+        else:
+            stack_t.append(c)   
+
+    return stack_s == stack_t 
+
+
+tests = [("ab#c", "ad#c"), ("ab##", "c#d#"), ("a#c", "b") ] 
+exp_outs = [True, True, False]
 
 for (test, exp_out) in zip(tests, exp_outs):
-    alg_out = remove_duplicates(test)
+    alg_out = backsapce_compare(*test)
     if alg_out == exp_out:
-        print(f" Passed test case : Input {test} , Expected Output: {exp_out}, Algorithm {alg_out}")
+        print(f" Passed test case : Input {test} , Expected Output: {exp_out}, Algorithm Output: {alg_out}")
     else:
-        print(f" Failed test case : Input {test} , Expected Output: {exp_out}, Algorithm {alg_out}")
+        print(f" Failed test case : Input {test} , Expected Output: {exp_out}, Algorithm Output: {alg_out}")
