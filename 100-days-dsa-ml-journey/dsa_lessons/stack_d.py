@@ -123,11 +123,47 @@ def backsapce_compare(s, t):
     return stack_s == stack_t 
 
 
-tests = [("ab#c", "ad#c"), ("ab##", "c#d#"), ("a#c", "b") ] 
-exp_outs = [True, True, False]
+# tests = [("ab#c", "ad#c"), ("ab##", "c#d#"), ("a#c", "b") ] 
+# exp_outs = [True, True, False]
+
+# for (test, exp_out) in zip(tests, exp_outs):
+#     alg_out = backsapce_compare(*test)
+#     if alg_out == exp_out:
+#         print(f" Passed test case : Input {test} , Expected Output: {exp_out}, Algorithm Output: {alg_out}")
+#     else:
+#         print(f" Failed test case : Input {test} , Expected Output: {exp_out}, Algorithm Output: {alg_out}")
+
+
+def simplifyPath(path):
+    """
+    Steps:
+    
+    -> split by '/' sign , and apply the following rules using stack
+        -> if the dir_name is not empty and is not "."" or ".."  ---> push to the stack
+        -> if the dir_name is ".." and stack is not empty ---> pop from stack
+    -> at the end join with "/" and convert str and return
+    
+    
+    """
+    
+    path_stack = []
+
+    dir_items = path.split("/")
+
+    for item in dir_items:
+        if item and item != ".." and item != ".":
+            path_stack.append(item)
+        if item == ".." and path_stack:
+            path_stack.pop()
+
+    return "/"+"/".join(path_stack)
+
+
+tests = ["/home/", "/../", "/home//foo/"] 
+exp_outs = ["/home", "/", "/home/foo"]
 
 for (test, exp_out) in zip(tests, exp_outs):
-    alg_out = backsapce_compare(*test)
+    alg_out = simplifyPath(test)
     if alg_out == exp_out:
         print(f" Passed test case : Input {test} , Expected Output: {exp_out}, Algorithm Output: {alg_out}")
     else:
