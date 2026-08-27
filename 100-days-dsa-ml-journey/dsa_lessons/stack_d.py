@@ -159,12 +159,35 @@ def simplifyPath(path):
     return "/"+"/".join(path_stack)
 
 
-tests = ["/home/", "/../", "/home//foo/"] 
-exp_outs = ["/home", "/", "/home/foo"]
+# tests = ["/home/", "/../", "/home//foo/"] 
+# exp_outs = ["/home", "/", "/home/foo"]
+
+# for (test, exp_out) in zip(tests, exp_outs):
+#     alg_out = simplifyPath(test)
+#     if alg_out == exp_out:
+#         print(f" Passed test case : Input {test} , Expected Output: {exp_out}, Algorithm Output: {alg_out}")
+#     else:
+#         print(f" Failed test case : Input {test} , Expected Output: {exp_out}, Algorithm Output: {alg_out}")
+
+def make_good(s):
+    stack = []
+
+    for c in s:        
+        if stack and stack[-1] != c and stack[-1].lower() ==  c.lower():
+                stack.pop()
+        else:
+            stack.append(c)
+
+    return "".join(stack)
+# [l e], e
+
+tests = ["leEeetcode", "abBA", "s"] 
+exp_outs = ["leetcode", "", "s"]
 
 for (test, exp_out) in zip(tests, exp_outs):
-    alg_out = simplifyPath(test)
+    alg_out = make_good(test)
     if alg_out == exp_out:
-        print(f" Passed test case : Input {test} , Expected Output: {exp_out}, Algorithm Output: {alg_out}")
+        print(f" --------------- Passed test case -------------  \n \t Input = {test} , \n \t Expected Output = {exp_out}, \n \t Algorithm Output = {alg_out}")
     else:
-        print(f" Failed test case : Input {test} , Expected Output: {exp_out}, Algorithm Output: {alg_out}")
+        print(f" --------------- Failed test case -------------  \n \t Input = {test} , \n \t Expected Output = {exp_out}, \n \t Algorithm Output = {alg_out}")
+        
