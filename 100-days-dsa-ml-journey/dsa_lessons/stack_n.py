@@ -92,3 +92,37 @@ print("\n Expected outputs: True, True, False \n and actual:",backspaceCompare("
 
 
 #p-3: Simplify Path
+
+def simplifyPath(path: str) -> str:
+    '''
+    problem:
+    - simplify the path
+    rules:
+    - // or /// concidered as /
+    - .. take one step up directory 
+    - . current directory
+    - ... can be concidered as a file name
+
+    '''
+    path_arr = path.split("/")
+    history = []
+
+    for c in path_arr[1:]:
+        if c == "" or c == '.':
+            continue
+        elif c == "..":
+            if history:
+                history.pop()
+
+            print(f'.. test case')
+            continue
+        # elif history[-1]== '':
+        #     history.pop()
+        else:
+            if (not history ) or (history[-1] != '/'):
+                history.append('/')
+            history.append(c)
+
+    return "".join(history)
+
+print(f'testing, siplify path \n\n {simplifyPath("/home/user/////Documents/../Pictures")}')
