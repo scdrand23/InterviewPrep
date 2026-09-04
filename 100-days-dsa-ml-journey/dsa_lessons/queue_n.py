@@ -1,5 +1,6 @@
 #Date 08/28/2026
 
+import math
 '''
 Queue:FIFO- services,printer queue
 operations:
@@ -78,3 +79,59 @@ def test_rc(pings, expected):
 
 
 test_rc([[], 1, 100, 3001, 3002], [None, 1, 2, 3, 3])
+
+
+# Date 09/04/2026
+# Moving Average from Data Stream
+
+from collections import deque
+class MovingAverage:
+    '''
+    undestanding the problem which is for data stream and moving average with fixed window size n
+    solution:
+    - to save memory we can use deque and append to the right and pop from left so that we will not have     memory problem 
+    '''
+
+    def __init__(self, size: int):
+        self.size = size
+        self.queue = deque()
+        
+        #for tracking
+        self.count = 0
+        self.sum =0
+        
+
+    def next(self, val: int) -> float:
+        self.queue.append(val)
+        self.count += 1
+        
+        dequed_val = self.queue.popleft() if self.count> self.size else 0
+            
+        self.sum = self.sum - dequed_val + val
+        
+        return self.sum/min(self.size, self.count)
+        
+        
+        
+#test case
+# [[3],[1],[10],[3],[5]]
+obj = MovingAverage(3)
+def test_ma_stream_data(input, target):
+  
+    flag =''
+    for i in range(len(input)):
+        if not math.isclose(obj.next(input[i]), target[i], rel_tol=1e-4):
+            print(f'test faild  as {input[i]} is not same as {target[i]}')
+            flag = "tast failed"
+    
+    return flag if flag else "All tests passed"
+
+
+input = [1, 10, 3, 5]
+target = [1.0, 5.5, 4.66667, 6.0]
+print(f'\n Testing moving average on a data stream \n {test_ma_stream_data(input, target)}')
+    
+
+
+
+
