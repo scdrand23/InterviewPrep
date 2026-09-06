@@ -78,3 +78,8 @@ def test_rc(pings, expected):
 
 
 test_rc([[], 1, 100, 3001, 3002], [None, 1, 2, 3, 3])
+
+
+#Date 09/01/2026
+
+#Moving Average from Data Stream
