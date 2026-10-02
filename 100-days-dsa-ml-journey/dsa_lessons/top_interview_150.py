@@ -52,14 +52,26 @@ def merge(nums1, m, nums2 , n):
     return nums1
 
 
-tests = [([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3), ([1], 1, [], 0), ([0], 0, [1], 1)] 
-exp_outs = [[1, 2, 2, 3, 5, 6], [1], [1]]
+# Better Solution 
 
-for i, (test, exp_out) in enumerate(zip(tests, exp_outs)):
-    alg_out = merge(*test)
-    if alg_out == exp_out:
-        print(f" \n --------------- test case {i+1} ------ PASSED 👏 !!! -------  \n \t Input = {test}  \n \t Expected Output = {exp_out} \n \t Algorithm Output = {alg_out}")
-    else:
-        print(f" \n --------------- test case {i+1} ------ FAILED 😔 !------  \n \t Input = {test}  \n \t Expected Output = {exp_out} \n \t Algorithm Output = {alg_out}")
+"""
+nums1 is  sorted , nums2 is sorted so, 
+
+we can do: 
+
+[ w, ... , u, 0, ... , 0]
+[x, y , z]
+
+"""
+
+# tests = [([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3), ([1], 1, [], 0), ([0], 0, [1], 1)] 
+# exp_outs = [[1, 2, 2, 3, 5, 6], [1], [1]]
+
+# for i, (test, exp_out) in enumerate(zip(tests, exp_outs)):
+#     alg_out = merge(*test)
+#     if alg_out == exp_out:
+#         print(f" \n --------------- test case {i+1} ------ PASSED 👏 !!! -------  \n \t Input = {test}  \n \t Expected Output = {exp_out} \n \t Algorithm Output = {alg_out}")
+#     else:
+#         print(f" \n --------------- test case {i+1} ------ FAILED 😔 !------  \n \t Input = {test}  \n \t Expected Output = {exp_out} \n \t Algorithm Output = {alg_out}")
         
 
